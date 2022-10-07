@@ -1,1 +1,2 @@
-int randint(long lower, long upper);
+long randlong();
+long randlongrange(long lower, long upper);

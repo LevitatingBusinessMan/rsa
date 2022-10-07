@@ -60,6 +60,7 @@ unsigned long power(unsigned long base, int exp) {
 }
 
 //fails on 679
+//infinite loop 18446744072410345099
 bool isprime(unsigned long n) {
     //if (!miller_rabin(n,1)) return false;
 
@@ -103,7 +104,7 @@ bool miller_rabin(unsigned long n, int k) {
     }
 
     for (int i=0; i<k; i++) {
-        a = randint(2,n-2); // testing 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37 should suffice for n < 2**64
+        a = randlong(2,n-2); // testing 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37 should suffice for n < 2**64
         unsigned long x = power(a, (int) d) % n;
         if (x == 1 || x == n -1 ) continue;
         for (int j=0; j < s-1; j++) {
