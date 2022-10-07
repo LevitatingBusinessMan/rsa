@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 unsigned int sieve_of_eratosthenes(unsigned int n, unsigned int** output);
 bool isprime(unsigned long n);
 bool isprime_eratos(unsigned long n, unsigned int* first_primes, int amount);

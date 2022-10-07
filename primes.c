@@ -5,6 +5,7 @@
 #include <string.h>
 #include <random.h>
 
+//fails on 151
 unsigned int sieve_of_eratosthenes(unsigned int n, unsigned int** output) {
     bool* primes = malloc(sizeof(bool) * (n+1));
     //bool primes[n+1];
@@ -45,13 +46,20 @@ unsigned int sieve_of_eratosthenes(unsigned int n, unsigned int** output) {
 
 }
 
+unsigned long power2(int exp) {
+    unsigned long b = 1;
+    return b <<= exp;
+}
+
 unsigned long power(unsigned long base, int exp) {
+    if (base == 2) return power2(exp);
     int i;
     unsigned long result = 1;
     for (i = 0; i < exp; i++) result *= base;
     return result;
 }
 
+//fails on 679
 bool isprime(unsigned long n) {
     //if (!miller_rabin(n,1)) return false;
 
