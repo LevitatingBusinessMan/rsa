@@ -27,6 +27,15 @@ int main(int argc, char** argv) {
     srandom(time(NULL));
     unsigned long p = random_prime(k);
     unsigned long q = random_prime(k);
+    unsigned long N = p * q;
+    unsigned long phi = eulers_totient(p,q);
 
-    printf("p: %lu q: %lu\n", p,q);
+
+    unsigned long e;
+    for (e=2;; e++) {
+        if (gcd(e,phi) == 1) break;
+    }
+
+    printf("p: %lu q: %lu, N:%lu, phi: %lu, e:%lu\n", p,q,N,phi,e);
+
 }

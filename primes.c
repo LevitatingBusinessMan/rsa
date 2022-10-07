@@ -5,6 +5,15 @@
 #include <string.h>
 #include <random.h>
 
+unsigned long eulers_totient(unsigned long p, unsigned long q) {
+    return (p-1) * (q-1);
+}
+
+unsigned long gcd(unsigned long a, unsigned long b) {
+    if (a && b) for(;(a %= b) && (b %= a););
+    return a | b;
+}
+
 //fails on 151
 unsigned int sieve_of_eratosthenes(unsigned int n, unsigned int** output) {
     bool* primes = malloc(sizeof(bool) * (n+1));
