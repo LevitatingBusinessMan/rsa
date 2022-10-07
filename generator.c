@@ -15,7 +15,6 @@ unsigned long random_prime(int k) {
     unsigned long p = 0;
     while (!isprime_eratos(p, first_primes, amount)) {
         p = randlongrange(lower, upper); //* 2 - 1;
-        printf("%lu\n", p);
     }
     return p;
 }
