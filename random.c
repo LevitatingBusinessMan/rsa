@@ -3,7 +3,7 @@
 
 long randlong() {
     FILE *fs;
-    if (!(fs = fopen("/dev/random", "r")))
+    if (!(fs = fopen("/dev/urandom", "r")))
 		return -1;
     long number;
     fread(&number, sizeof(long), 1, fs);

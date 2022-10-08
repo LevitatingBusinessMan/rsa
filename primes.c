@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <random.h>
+#include <primes.h>
 
 unsigned long eulers_totient(unsigned long p, unsigned long q) {
     return (p-1) * (q-1);
@@ -56,7 +57,7 @@ unsigned int sieve_of_eratosthenes(unsigned int n, unsigned int** output) {
 }
 
 unsigned long power2(int exp) {
-    return 1 << exp;
+    return (unsigned long) 1 << exp;
 }
 
 unsigned long power(unsigned long base, int exp) {

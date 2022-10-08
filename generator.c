@@ -7,9 +7,9 @@
 unsigned long random_prime(int k) {
     // Use the upper half of total range
     unsigned long lower = power2((k-1)/2);
-    unsigned long upper = power2(k/2)-1; //power2(64) ends up as 1
+    unsigned long upper = power2(k/2) - (k == 128 ? 2 : 1); //power2(64) ends up as 1
     
-    unsigned long* first_primes;
+    unsigned int* first_primes;
     int amount = sieve_of_eratosthenes(163, &first_primes);
     
     unsigned long p = 0;
@@ -22,7 +22,7 @@ unsigned long random_prime(int k) {
 int main(int argc, char** argv) {
     //We want to generate 64 bit primes
     //So a keysize of 128 (k=128)
-    int k = 32;
+    int k = 64;
 
     srandom(time(NULL));
     unsigned long p = random_prime(k);
