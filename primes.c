@@ -56,8 +56,7 @@ unsigned int sieve_of_eratosthenes(unsigned int n, unsigned int** output) {
 }
 
 unsigned long power2(int exp) {
-    unsigned long b = 1;
-    return b <<= exp;
+    return 1 << exp;
 }
 
 unsigned long power(unsigned long base, int exp) {

@@ -7,14 +7,14 @@
 unsigned long random_prime(int k) {
     // Use the upper half of total range
     unsigned long lower = power2((k-1)/2);
-    unsigned long upper = power2(k/2)-1;
+    unsigned long upper = power2(k/2)-1; //power2(64) ends up as 1
     
     unsigned long* first_primes;
     int amount = sieve_of_eratosthenes(163, &first_primes);
     
     unsigned long p = 0;
     while (!isprime_eratos(p, first_primes, amount)) {
-        p = randlongrange(lower, upper); //* 2 - 1;
+        p = randlongrange(lower, upper);
     }
     return p;
 }
