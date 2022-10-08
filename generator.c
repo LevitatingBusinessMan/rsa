@@ -31,22 +31,19 @@ unsigned long random_prime(int k) {
     return p;
 }
 
-int encryptc(struct PublicKey key, char m) {
+long encryptc(struct PublicKey key, char m) {
     return modpower(m,key.e, key.N);
 }
 
-char decryptc(struct PrivateKey key, int c) {
+char decryptc(struct PrivateKey key, long c) {
     return modpower(c,key.d,key.pub.N);
 }
 
 int main(int argc, char** argv) {
-    //We want to generate 64 bit primes
-    //So a keysize of 128 (k=128)
     int k = 32;
 
-    srandom(time(NULL));
-    unsigned long p = 61;//random_prime(k);
-    unsigned long q = 53;//random_prime(k);
+    unsigned long p = random_prime(k);
+    unsigned long q = random_prime(k);
     unsigned long N = p * q;
     unsigned long phi = eulers_totient(p,q);
     //unsigned long lambda = carmicheals_totient(p,q);
@@ -61,9 +58,6 @@ int main(int argc, char** argv) {
     if ((long) d < 1) {
         d += phi;
     }
-    
-    e = 17;
-    d = 413;
 
     printf("p: %lu, q: %lu, N:%lu, phi: %lu,  e:%lu, d:%lu\n", p,q,N,phi,e,d);
 
@@ -74,6 +68,8 @@ int main(int argc, char** argv) {
         d
     };
 
-    printf("%c\n", decryptc(key, encryptc(key.pub, 'A')));
+    long c = encryptc(key.pub, 'A');
+    char m = decryptc(key, c);
+    printf("%d %c",c, m);
 
 }

@@ -110,7 +110,7 @@ unsigned int sieve_of_eratosthenes(unsigned int n, unsigned int** output) {
 
 }
 
-unsigned long power2(int exp) {
+unsigned long power2(unsigned long exp) {
     return (unsigned long) 1 << exp;
 }
 
@@ -122,8 +122,12 @@ unsigned long power(unsigned long base, unsigned long exp) {
     return result;
 }
 
-unsigned long modpower2(int exp, unsigned long mod) {
-    return (unsigned long) 1 << exp % mod;
+unsigned long modpower2(unsigned long exp, unsigned long mod) {
+    unsigned long res = 1;
+    for (;exp >= 1; exp--) {
+        res = (res << 1) % mod;
+    }
+    return res;
 }
 
 unsigned long modpower(unsigned long base, unsigned long exp, unsigned long mod) {
@@ -137,11 +141,11 @@ unsigned long modpower(unsigned long base, unsigned long exp, unsigned long mod)
 //fails on 679
 //infinite loop 18446744072410345099
 bool isprime(unsigned long n) {
-    //if (!miller_rabin(n,1)) return false;
-
     if (!(n&1) || !(n%3) || n <= 1) return false;
 
     if (n == 2 || n == 3) return true;
+
+    //if (!miller_rabin(n,1)) return false;
 
     unsigned int square_root_n = sqrt(n);
     for (int i=5; i<= square_root_n; i += 6) {
@@ -164,8 +168,8 @@ bool isprime_eratos(unsigned long n, unsigned int* first_primes, int amount) {
 bool miller_rabin(unsigned long n, int k) {    
     //write n as 2^s*d+1 where d is odd
     unsigned long a;
-    long s = 0;
-    long d = n-1;
+    unsigned long s = 0;
+    unsigned long d = n-1;
 
     if (!(n&1) || !(n%3) || n <= 1) return false;
 
@@ -179,8 +183,8 @@ bool miller_rabin(unsigned long n, int k) {
     }
 
     for (int i=0; i<k; i++) {
-        a = randlong(2,n-2); // testing 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37 should suffice for n < 2**64
-        unsigned long x = power(a, (int) d) % n;
+        a = randlongrange(2,n-2); // testing 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37 should suffice for n < 2**64
+        unsigned long x = modpower(a, d, n);
         if (x == 1 || x == n -1 ) continue;
         for (int j=0; j < s-1; j++) {
             x = x*x % n;
