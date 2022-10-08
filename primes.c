@@ -114,11 +114,23 @@ unsigned long power2(int exp) {
     return (unsigned long) 1 << exp;
 }
 
-unsigned long power(unsigned long base, int exp) {
+unsigned long power(unsigned long base, unsigned long exp) {
     if (base == 2) return power2(exp);
     int i;
     unsigned long result = 1;
     for (i = 0; i < exp; i++) result *= base;
+    return result;
+}
+
+unsigned long modpower2(int exp, unsigned long mod) {
+    return (unsigned long) 1 << exp % mod;
+}
+
+unsigned long modpower(unsigned long base, unsigned long exp, unsigned long mod) {
+    if (base == 2) return modpower2(exp,mod);
+    int i;
+    unsigned long result = 1;
+    for (i = 0; i < exp; i++) result = result * base % mod;
     return result;
 }
 
