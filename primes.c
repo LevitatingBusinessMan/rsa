@@ -10,9 +10,63 @@ unsigned long eulers_totient(unsigned long p, unsigned long q) {
     return (p-1) * (q-1);
 }
 
+unsigned long carmicheals_totient(unsigned long p, unsigned long q) {
+    return lcm(p-1, q-1);
+}
 unsigned long gcd(unsigned long a, unsigned long b) {
     if (a && b) for(;(a %= b) && (b %= a););
     return a | b;
+}
+
+unsigned long lcm(unsigned long a, unsigned long b) {
+    long lcm;
+    long step;
+    long max = step =  a > b ? a : b;
+    for(;;) {
+        if (max % a == 0 && max % b == 0) {
+            lcm = max;
+            break;
+        }
+        max += step;
+    }
+    return lcm;
+}
+
+// This sometimes returns a different answer than the gcd function
+// which is a bug
+long extended_gcd(long a, long b, long* x, long* y) {
+    long old_r = a;
+    long r = b;
+    long old_s = 1;
+    long s = 0;
+    long old_t = 0;
+    long t = 1;
+
+    while (r != 0) {
+        long quotient = old_r / r;
+        
+        long prov = r;
+        r = old_r - quotient * prov;
+        old_r = prov;
+        
+        prov = s;
+        s = old_s - quotient * prov;
+        old_s = prov;
+        
+        prov = t;
+        t = old_t - quotient * prov;
+        old_t = prov;
+    }
+
+    // printf("Bezout coefficients: %li %li\n", old_s, old_t);
+    // printf("Greates common divisor: %li\n", old_r);
+    // printf("Real gcd: %li\n", gcd(a,b));
+    // printf("Quotients: %li %lu\n", t, s);
+
+    *x = old_s;
+    *y = old_t;
+    
+    return old_r;
 }
 
 //fails on 151

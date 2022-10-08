@@ -8,4 +8,6 @@ bool isprime_eratos(unsigned long n, unsigned int* first_primes, int amount);
 unsigned long power(unsigned long base, int exp);
 unsigned long power2(int exp);
 bool miller_rabin(unsigned long n, int k);
-
+unsigned long carmicheals_totient(unsigned long p, unsigned long q);
+unsigned long lcm(unsigned long a, unsigned long b);
+long extended_gcd(long a, long b, long* x, long* y);

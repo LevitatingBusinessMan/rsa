@@ -29,13 +29,21 @@ int main(int argc, char** argv) {
     unsigned long q = random_prime(k);
     unsigned long N = p * q;
     unsigned long phi = eulers_totient(p,q);
+    //unsigned long lambda = carmicheals_totient(p,q);
+
 
 
     unsigned long e;
-    for (e=2;; e++) {
-        if (gcd(e,phi) == 1) break;
+    unsigned long d;
+    long y;
+    for (e=3;; e++) {
+        if (extended_gcd(e,phi,&d,&y) == 1) break;
     }
 
-    printf("p: %lu q: %lu, N:%lu, phi: %lu, e:%lu\n", p,q,N,phi,e);
+    if ((long) d < 1) {
+        d += phi;
+    }
+
+    printf("p: %lu, q: %lu, N:%lu, phi: %lu,  e:%lu, d:%lu\n", p,q,N,phi,e,d);
 
 }
