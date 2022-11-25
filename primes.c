@@ -1,3 +1,5 @@
+//This file contains most algorithms
+
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>

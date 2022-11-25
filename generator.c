@@ -4,18 +4,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-struct PublicKey {
-    unsigned long e;
-    unsigned long N;
-};
-
-struct PrivateKey {
-    struct PublicKey pub;
-    unsigned long p;
-    unsigned long q;
-    unsigned long d;
-};
+#include <rsa.h>
 
 unsigned long random_prime(int k) {
     // Use the upper half of total range
@@ -32,36 +21,7 @@ unsigned long random_prime(int k) {
     return p;
 }
 
-long encryptc(struct PublicKey key, char m) {
-    printf("%lu**%lu %% %lu\n", m, key.e, key.N);
-    return modpower(m,key.e, key.N);
-}
-
-char decryptc(struct PrivateKey key, long c) {
-    printf("%lu**%lu %% %lu\n", c, key.d, key.pub.N);
-    return modpower(c,key.d,key.pub.N);
-}
-
-long* encrypt(struct PublicKey key, char* m) {
-    int length = strlen(m);
-    long* c = malloc(length * sizeof(long) +1);
-    for (int i=0; i < length; i++) c[i] = encryptc(key, m[i]);
-    c[length] = 0;
-    return c;
-}
-
-char* decrypt(struct PrivateKey key, long* c) {
-    int length = 0;
-    for (;c[length] != 0; length++);
-    char *m = malloc(length);
-    for (int i=0; i < length; i++) m[i] = decryptc(key, c[i]);
-    m[length] = 0;
-    return m;
-}
-
-int main(int argc, char** argv) {
-    int k = 32;
-
+struct PrivateKey generate_keypair(int k) {
     unsigned long p = random_prime(k);
     unsigned long q = random_prime(k);
     unsigned long N = p * q;
@@ -87,6 +47,12 @@ int main(int argc, char** argv) {
         q,
         d
     };
+
+    return key;
+}
+
+int main(int argc, char** argv) {
+    struct PrivateKey key = generate_keypair(32);
 
     long c = encryptc(key.pub, 'A');
     char m = decryptc(key, c);
