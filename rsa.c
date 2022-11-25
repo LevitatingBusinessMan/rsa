@@ -1,5 +1,7 @@
 #include <rsa.h>
 #include <string.h>
+#include <stdlib.h>
+#include <primes.h>
 
 long encryptc(struct PublicKey key, char m) {
     return modpower(m,key.e, key.N);
