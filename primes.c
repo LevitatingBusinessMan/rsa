@@ -130,11 +130,19 @@ unsigned long modpower2(unsigned long exp, unsigned long mod) {
     return res;
 }
 
+// Memory efficient modular exponentation with exponentation by squaring
 unsigned long modpower(unsigned long base, unsigned long exp, unsigned long mod) {
     if (base == 2) return modpower2(exp,mod);
     int i;
     unsigned long result = 1;
-    for (i = 0; i < exp; i++) result = (result * base) % mod;
+    while (exp > 0) {
+        // Odd exponent
+        if (exp & 1) {
+            result = (result * base) % mod;
+        }
+        exp = exp >> 1;
+        base = base * base % mod;
+    }
     return result;
 }
 

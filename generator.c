@@ -1,3 +1,4 @@
+// gcc -I./include primes.c random.c generator.c -lm -o primes -g -O3
 #include <primes.h>
 #include <random.h>
 #include <time.h>
@@ -32,11 +33,30 @@ unsigned long random_prime(int k) {
 }
 
 long encryptc(struct PublicKey key, char m) {
+    printf("%lu**%lu %% %lu\n", m, key.e, key.N);
     return modpower(m,key.e, key.N);
 }
 
 char decryptc(struct PrivateKey key, long c) {
+    printf("%lu**%lu %% %lu\n", c, key.d, key.pub.N);
     return modpower(c,key.d,key.pub.N);
+}
+
+long* encrypt(struct PublicKey key, char* m) {
+    int length = strlen(m);
+    long* c = malloc(length * sizeof(long) +1);
+    for (int i=0; i < length; i++) c[i] = encryptc(key, m[i]);
+    c[length] = 0;
+    return c;
+}
+
+char* decrypt(struct PrivateKey key, long* c) {
+    int length = 0;
+    for (;c[length] != 0; length++);
+    char *m = malloc(length);
+    for (int i=0; i < length; i++) m[i] = decryptc(key, c[i]);
+    m[length] = 0;
+    return m;
 }
 
 int main(int argc, char** argv) {
@@ -70,6 +90,9 @@ int main(int argc, char** argv) {
 
     long c = encryptc(key.pub, 'A');
     char m = decryptc(key, c);
-    printf("%d %c",c, m);
+    printf("%lu %c\n",c, m);
 
+    long* cs = encrypt(key.pub, "pizza");
+    char* ms = decrypt(key, cs);
+    printf(ms);
 }
