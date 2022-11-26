@@ -1,9 +1,7 @@
 // gcc -I./include primes.c random.c generator.c -lm -o primes -g -O3
 #include <primes.h>
 #include <random.h>
-#include <time.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <rsa.h>
 
 unsigned long random_prime(int k) {
@@ -49,16 +47,4 @@ struct PrivateKey generate_keypair(int k) {
     };
 
     return key;
-}
-
-int main(int argc, char** argv) {
-    struct PrivateKey key = generate_keypair(32);
-
-    long c = encryptc(key.pub, 'A');
-    char m = decryptc(key, c);
-    printf("%lu %c\n",c, m);
-
-    long* cs = encrypt(key.pub, "pizza");
-    char* ms = decrypt(key, cs);
-    printf(ms);
 }
