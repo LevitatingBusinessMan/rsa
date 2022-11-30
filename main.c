@@ -59,6 +59,7 @@ int main(int argc, char** argv) {
     struct PrivateKey key = generate_keypair(arguments.keysize);
 
     printf(privkey_to_ascii(key));
+    printf(pubkey_to_ascii(key.pub));
 
     long c = encryptc(key.pub, 'A');
     char m = decryptc(key, c);
