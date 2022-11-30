@@ -37,7 +37,7 @@ struct PrivateKey generate_keypair(int k) {
         d += phi;
     }
 
-    printf("p: %lu, q: %lu, N:%lu, phi: %lu,  e:%lu, d:%lu\n", p,q,N,phi,e,d);
+    fprintf(stderr,"p: %lu, q: %lu, N:%lu, phi: %lu,  e:%lu, d:%lu\n", p,q,N,phi,e,d);
 
     struct PrivateKey key = {
         {e,N},
