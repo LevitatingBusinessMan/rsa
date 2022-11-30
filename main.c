@@ -46,15 +46,19 @@ int main(int argc, char** argv) {
 
     struct arguments arguments;
     arguments.mode = NONE;
+    arguments.keysize = 32;
 
     argp_parse(&argp, argc, argv, 0, 0, &arguments);
 
+    // TODO move this to parse_opt
     if (arguments.mode == NONE) {
         printf("No mode\n");
         exit(1);
     }
 
     struct PrivateKey key = generate_keypair(arguments.keysize);
+
+    printf(privkey_to_ascii(key));
 
     long c = encryptc(key.pub, 'A');
     char m = decryptc(key, c);

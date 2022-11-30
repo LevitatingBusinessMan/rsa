@@ -14,3 +14,5 @@ long encryptc(struct PublicKey key, char m);
 char decryptc(struct PrivateKey key, long c);
 long* encrypt(struct PublicKey key, char* m);
 char* decrypt(struct PrivateKey key, long* c);
+char* pubkey_to_ascii(struct PublicKey key);
+char* privkey_to_ascii(struct PrivateKey key);
