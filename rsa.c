@@ -37,12 +37,12 @@ char* pubkey_to_ascii(struct PublicKey key) {
     char* base64buf = malloc(base64len);
     Base64encode(base64buf, (char*) &key, sizeof(key));
 
-    char* buffer = malloc(66 + base64len + 1);
+    char* buffer = malloc(71 + base64len + 1);
     sprintf(
         buffer,
-        "-----BEGIN REIN RSA PUBLIC KEY\n"
+        "-----BEGIN REIN RSA PUBLIC KEY-----\n"
         "%s\n"
-        "-----END REIN RSA PUBLIC KEY\n",
+        "-----END REIN RSA PUBLIC KEY-----\n",
         base64buf
     );
 
@@ -54,12 +54,12 @@ char* privkey_to_ascii(struct PrivateKey key) {
     char* base64buf = malloc(base64len);
     Base64encode(base64buf, (char*) &key, sizeof(key));
 
-    char* buffer = malloc(66 + base64len + 1);
+    char* buffer = malloc(69 + base64len + 1);
     sprintf(
         buffer,
-        "-----BEGIN REIN RSA PRIVATE KEY\n"
+        "-----BEGIN REIN RSA PRIVATE KEY-----\n"
         "%s\n"
-        "-----END REIN RSA PRIVATE KEY\n",
+        "-----END REIN RSA PRIVATE KEY-----\n",
         base64buf
     );
 
