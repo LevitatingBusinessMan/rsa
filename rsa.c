@@ -4,6 +4,7 @@
 #include <primes.h>
 #include <base64.h>
 #include <string.h>
+#include <stdio.h>
 
 long encryptc(struct PublicKey key, char m) {
     return modpower(m,key.e, key.N);
@@ -34,7 +35,7 @@ char* decrypt(struct PrivateKey key, long* c) {
 char* pubkey_to_ascii(struct PublicKey key) {
     int base64len = Base64encode_len(sizeof(key));
     char* base64buf = malloc(base64len);
-    Base64encode(base64buf, &key, sizeof(key));
+    Base64encode(base64buf, (char*) &key, sizeof(key));
 
     char* buffer = malloc(66 + base64len + 1);
     sprintf(
@@ -51,7 +52,7 @@ char* pubkey_to_ascii(struct PublicKey key) {
 char* privkey_to_ascii(struct PrivateKey key) {
     int base64len = Base64encode_len(sizeof(key));
     char* base64buf = malloc(base64len);
-    Base64encode(base64buf, &key, sizeof(key));
+    Base64encode(base64buf, (char*) &key, sizeof(key));
 
     char* buffer = malloc(66 + base64len + 1);
     sprintf(
