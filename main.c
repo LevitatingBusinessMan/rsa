@@ -82,6 +82,13 @@ struct argp argp = {options, parse_opt};
 
 int main(int argc, char** argv) {
 
+    struct PrivateKey key = generate_keypair(64);
+    __int128_t c = encryptc(key.pub, 'A');
+    char m = decryptc(key, c);
+    printf("%c\n", m);
+
+    return 0;
+    
     struct arguments arguments;
     arguments.mode = NONE;
     arguments.keysize = 32;

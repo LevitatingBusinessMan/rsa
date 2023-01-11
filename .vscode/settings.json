@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "stdbool.h": "c",
+        "string.h": "c",
+        "primes.h": "c",
+        "time.h": "c",
+        "stdio.h": "c",
+        "*.tcc": "c",
+        "cstdio": "c",
+        "atomic": "c",
+        "sstream": "c",
+        "iostream": "c"
+    },
+    "discord.enabled": true
+}
